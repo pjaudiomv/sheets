@@ -26,6 +26,27 @@ Route::get('tsml/{sheetId}', function ($sheetId) {
     return ['meetings' => $rows, 'warnings' => $warnings];
 });
 
+// Central cache
+Route::get('central/{accountId}', function ($accountId) {
+    $redirectTo = request('redirectTo');
+    $filename = 'central/' . $accountId . '.json';
+    $lastModified = Storage::disk('public')->exists($filename) ? Storage::disk('public')->lastModified($filename) : 0;
+    $cacheExpires = now()->subMinutes(15)->timestamp;
+
+    if (!$redirectTo && $lastModified > $cacheExpires) {
+        // return cache
+        $result = json_decode(Storage::disk('public')->get($filename));
+    } else {
+        // update cache
+        $response = Http::get('https://central.code4recovery.org/feeds/' . $accountId);
+        Storage::disk('public')->put($filename, $response);
+        $result = $response->json();
+    }
+
+    // return redirect or json
+    return $redirectTo ? redirect($redirectTo) : response()->json($result);
+});
+
 Route::get('{sheetId}', function ($sheetId, $redirectTo = false) {
     $redirectTo = request('redirectTo');
     $response = Controller::fetch($sheetId);
