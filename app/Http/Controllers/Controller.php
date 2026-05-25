@@ -253,10 +253,6 @@ class Controller extends BaseController
                     ];
                 }
 
-                $row['types'] = array_values(array_filter($row['types'], function ($type) use ($types) {
-                    return array_key_exists(strtolower($type), $types) || in_array(strtoupper($type), $types);
-                }));
-
                 $row['types'] = array_map(function ($type) use ($types) {
                     return array_key_exists(strtolower($type), $types) ? $types[strtolower($type)] : strtoupper($type);
                 }, $row['types']);
