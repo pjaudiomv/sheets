@@ -65,15 +65,12 @@
 
 <h2 class="mt-5 fs-4">Setting up TSML UI?</h2>
 
-<textarea class="bg-black border-0 font-monospace mb-3 p-3 rounded text-light w-100" rows="9">&lt;div
+<textarea class="bg-black border-0 font-monospace mb-3 p-3 rounded text-light w-100" rows="8">&lt;div
   id="tsml-ui"
   data-src="{{ $feedUrl }}"
-  data-mapbox="pk.your.mapbox.access.token.goes.here"
   data-timezone="America/Los_Angeles"
 &gt;&lt;/div&gt;
 &lt;script src="https://tsml-ui.code4recovery.org/app.js" async&gt;&lt;/script&gt;</textarea>
-
-<p>Get a <a href="https://mapbox.com" target="_blank">free Mapbox token</a> to enable maps on your site.</p>
 
 <p>Update the timezone above with <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
         target="_blank">one from this list</a>.</p>
